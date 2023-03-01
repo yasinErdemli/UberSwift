@@ -11,7 +11,11 @@ import MapKit
 class LocationSearchViewModel: NSObject, ObservableObject {
     @Published var results = [MKLocalSearchCompletion]()
     private let searchCompleter = MKLocalSearchCompleter()
-    var queryFragment: String = ""
+    var queryFragment: String = "" {
+        didSet {
+            searchCompleter.queryFragment = queryFragment
+        }
+    }
     
     override init() {
         super.init()
