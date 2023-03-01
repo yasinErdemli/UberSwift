@@ -12,6 +12,7 @@
 		7DA3402E29AF5413001162D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA3402D29AF5413001162D7 /* Preview Assets.xcassets */; };
 		7DA3403D29AF551D001162D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA3403C29AF551D001162D7 /* HomeView.swift */; };
 		7DA3403F29AF5596001162D7 /* UberMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA3403E29AF5596001162D7 /* UberMapViewRepresentable.swift */; };
+		7DEE618529AF5D4500864E7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEE618429AF5D4500864E7B /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		7DA3402D29AF5413001162D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7DA3403C29AF551D001162D7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7DA3403E29AF5596001162D7 /* UberMapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberMapViewRepresentable.swift; sourceTree = "<group>"; };
+		7DEE618429AF5D4500864E7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		7DA3403729AF54B9001162D7 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7DEE618429AF5D4500864E7B /* LocationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DEE618529AF5D4500864E7B /* LocationManager.swift in Sources */,
 				7DA3403D29AF551D001162D7 /* HomeView.swift in Sources */,
 				7DA3403F29AF5596001162D7 /* UberMapViewRepresentable.swift in Sources */,
 				7DA3402729AF5412001162D7 /* UberSwiftApp.swift in Sources */,
