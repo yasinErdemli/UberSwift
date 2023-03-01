@@ -12,6 +12,7 @@
 		7DA3402E29AF5413001162D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA3402D29AF5413001162D7 /* Preview Assets.xcassets */; };
 		7DA3403D29AF551D001162D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA3403C29AF551D001162D7 /* HomeView.swift */; };
 		7DA3403F29AF5596001162D7 /* UberMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA3403E29AF5596001162D7 /* UberMapViewRepresentable.swift */; };
+		7DA926B329AF913400DE813C /* LocationSearchActivatitonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA926B229AF913400DE813C /* LocationSearchActivatitonView.swift */; };
 		7DEE618529AF5D4500864E7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEE618429AF5D4500864E7B /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +23,7 @@
 		7DA3402D29AF5413001162D7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7DA3403C29AF551D001162D7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7DA3403E29AF5596001162D7 /* UberMapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberMapViewRepresentable.swift; sourceTree = "<group>"; };
+		7DA926B229AF913400DE813C /* LocationSearchActivatitonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchActivatitonView.swift; sourceTree = "<group>"; };
 		7DEE618429AF5D4500864E7B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,8 +87,8 @@
 		7DA3403529AF54AF001162D7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				7DA3403A29AF54FD001162D7 /* ViewModel */,
-				7DA3403929AF54FB001162D7 /* Views */,
+				7DA926AF29AF90FB00DE813C /*  LocationSearch */,
+				7DA926AE29AF90ED00DE813C /* Home */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -127,6 +129,39 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7DA926AE29AF90ED00DE813C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7DA3403A29AF54FD001162D7 /* ViewModel */,
+				7DA3403929AF54FB001162D7 /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7DA926AF29AF90FB00DE813C /*  LocationSearch */ = {
+			isa = PBXGroup;
+			children = (
+				7DA926B029AF910C00DE813C /* ViewModel */,
+				7DA926B129AF911000DE813C /* Views */,
+			);
+			path = " LocationSearch";
+			sourceTree = "<group>";
+		};
+		7DA926B029AF910C00DE813C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7DA926B129AF911000DE813C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7DA926B229AF913400DE813C /* LocationSearchActivatitonView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DA926B329AF913400DE813C /* LocationSearchActivatitonView.swift in Sources */,
 				7DEE618529AF5D4500864E7B /* LocationManager.swift in Sources */,
 				7DA3403D29AF551D001162D7 /* HomeView.swift in Sources */,
 				7DA3403F29AF5596001162D7 /* UberMapViewRepresentable.swift in Sources */,
@@ -334,6 +370,7 @@
 				DEVELOPMENT_TEAM = WQT83F9429;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,6 +400,7 @@
 				DEVELOPMENT_TEAM = WQT83F9429;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
