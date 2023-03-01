@@ -17,9 +17,9 @@ struct LocationSearchResultCell: View {
                 .frame(width: 40, height: 40)
             
             VStack(alignment: .leading) {
-                Text("Starbucks Coffee")
+                Text("Lorem Ipsum Dolor")
                     .font(.body)
-                Text("123 Main st. Cupertino CA")
+                Text("Lorem ipsum dolor sit amet, consectetur ")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 
