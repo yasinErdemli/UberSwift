@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LocationSearchView: View {
     @State private var startLocationText = ""
-    @StateObject var viewModel = LocationSearchViewModel()
     @Binding var showLocationSearchView: Bool
+    @EnvironmentObject var viewModel: LocationSearchViewModel
     var body: some View {
         VStack {
             HStack {

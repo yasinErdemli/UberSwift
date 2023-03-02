@@ -27,6 +27,7 @@ class LocationSearchViewModel: NSObject, ObservableObject {
     
     func selectLocation(_ location: String) {
         self.selectedLocation = location
+        print(self.selectedLocation)
     }
 }
 
