@@ -49,7 +49,7 @@ struct LocationSearchView: View {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.results, id: \.self) { result in
                         Button {
-                            viewModel.selectLocation(result.title)
+                            viewModel.selectLocation(result)
                                 showLocationSearchView.toggle()
                         } label: {
                             LocationSearchResultCell(title: result.title, subtitle: result.subtitle)
