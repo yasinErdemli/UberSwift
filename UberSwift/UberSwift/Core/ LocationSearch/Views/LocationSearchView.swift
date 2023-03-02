@@ -10,8 +10,8 @@ import SwiftUI
 struct LocationSearchView: View {
     @State private var startLocationText = ""
     @StateObject var viewModel = LocationSearchViewModel()
+    @Binding var showLocationSearchView: Bool
     var body: some View {
-        // header
         VStack {
             HStack {
                 VStack {
@@ -48,19 +48,23 @@ struct LocationSearchView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.results, id: \.self) { result in
-                        LocationSearchResultCell(title: result.title, subtitle: result.subtitle)
+                        Button {
+                            viewModel.selectLocation(result.title)
+                                showLocationSearchView.toggle()
+                        } label: {
+                            LocationSearchResultCell(title: result.title, subtitle: result.subtitle)
+                        }
                     }
                 }
             }
 
         }
         .background(.white)
-        // list
     }
 }
 
 struct LocationSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSearchView()
+        LocationSearchView(showLocationSearchView: .constant(false))
     }
 }
