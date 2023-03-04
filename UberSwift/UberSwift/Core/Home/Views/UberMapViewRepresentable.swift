@@ -25,6 +25,7 @@ struct UberMapViewRepresentable: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let selectedLocation = viewModel.selectedLocation {
             context.coordinator.addAndSelectAnnotation(withCoordinate: selectedLocation)
+            context.coordinator.configurePolyline(withDestionationCoordinate: selectedLocation)
         }
     }
     
@@ -37,14 +38,23 @@ extension UberMapViewRepresentable {
     
     class MapCoordinator: NSObject, MKMapViewDelegate {
         let parent: UberMapViewRepresentable
+        var userLocationCoordinate: CLLocationCoordinate2D?
         
         init(parent: UberMapViewRepresentable) {
             self.parent = parent
             super.init()
         }
         func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+            self.userLocationCoordinate = userLocation.coordinate
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
             self.parent.mapView.setRegion(region, animated: true)
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            let polyline = MKPolylineRenderer(overlay: overlay)
+            polyline.strokeColor = .systemBlue
+            polyline.lineWidth = 6
+            return polyline
         }
         
         func addAndSelectAnnotation(withCoordinate coordinate: CLLocationCoordinate2D) {
@@ -55,6 +65,14 @@ extension UberMapViewRepresentable {
             self.parent.mapView.selectAnnotation(anno, animated: true)
             
             self.parent.mapView.showAnnotations(self.parent.mapView.annotations, animated: true)
+        }
+        
+        func configurePolyline(withDestionationCoordinate coordinate: CLLocationCoordinate2D) {
+            self.parent.mapView.removeOverlays(self.parent.mapView.overlays)
+            guard let userLocation = userLocationCoordinate else { return }
+            getDestinationRoute(from: userLocation, to: coordinate) { route in
+                self.parent.mapView.addOverlay(route.polyline)
+            }
         }
         
         func getDestinationRoute(from userlocation: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D, completion: @escaping(MKRoute) -> Void) {
