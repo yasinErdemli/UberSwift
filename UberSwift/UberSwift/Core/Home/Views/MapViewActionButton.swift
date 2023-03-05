@@ -12,16 +12,10 @@ struct MapViewActionButton: View {
     var body: some View {
         Button {
             withAnimation(.spring()) {
-                if mapState == .noInput {
-                    mapState = .searchingForLocation
-                } else if mapState == .searchingForLocation {
-                    mapState = .noInput
-                } else {
-                    mapState = .noInput
-                }
+                actionForState(mapState)
             }
         } label: {
-            Image(systemName: mapState == .searchingForLocation || mapState == .locationSelected ? "arrow.left" : "line.3.horizontal")
+            Image(systemName: imageForState(mapState))
                 .font(.title2)
                 .foregroundColor(.black)
                 .padding()
@@ -30,6 +24,25 @@ struct MapViewActionButton: View {
                 .shadow(color: .black, radius: 6)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    func actionForState(_ state: MapViewState) {
+        switch state {
+        case .noInput:
+            print("No input")
+        case .searchingForLocation:
+            mapState = .noInput
+        case .locationSelected:
+            print("clear mapView")
+        }
+    }
+    
+    func imageForState(_ state: MapViewState) -> String {
+        switch state {
+        case .noInput:
+            return "line.3.horizontal"
+        case .searchingForLocation , .locationSelected:
+            return "arror.left"
+        }
     }
 }
 
