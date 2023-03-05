@@ -41,7 +41,7 @@ struct MapViewActionButton: View {
         case .noInput:
             return "line.3.horizontal"
         case .searchingForLocation , .locationSelected:
-            return "arror.left"
+            return "arrow.left"
         }
     }
 }
