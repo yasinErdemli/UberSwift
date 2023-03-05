@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RideRequestView: View {
-    @State private var selectedRide: RideType = .uberX
+    @State private var selectedRide: RideType = .uberXL
+    @EnvironmentObject var viewModel: LocationSearchViewModel
     var body: some View {
         VStack {
             HStack {
@@ -81,7 +82,7 @@ struct RideRequestView: View {
                                         .font(.callout)
                                         .fontWeight(.semibold)
                                     
-                                    Text("250.00₺")
+                                    Text(String(format: "%.2f", viewModel.computeRidePrice(for: ride)) + "₺")
                                         .font(.callout)
                                         .fontWeight(.semibold)
                                 }
@@ -139,15 +140,16 @@ struct RideRequestView: View {
                 }
 
             }
-            .background(.white)
-            .cornerRadius(24)
         }
         .padding(.bottom)
+        .background(.white)
+        .cornerRadius(24)
     }
 }
 
 struct RideRequestView_Previews: PreviewProvider {
     static var previews: some View {
         RideRequestView()
+            .environmentObject(LocationSearchViewModel())
     }
 }

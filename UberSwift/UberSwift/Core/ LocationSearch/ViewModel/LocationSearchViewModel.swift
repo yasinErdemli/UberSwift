@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 
+
 class LocationSearchViewModel: NSObject, ObservableObject {
     @Published var results = [MKLocalSearchCompletion]()
     @Published var selectedLocation: CLLocationCoordinate2D?
@@ -18,6 +19,8 @@ class LocationSearchViewModel: NSObject, ObservableObject {
             searchCompleter.queryFragment = queryFragment
         }
     }
+    
+    var userLocation: CLLocationCoordinate2D?
     
     override init() {
         super.init()
@@ -40,6 +43,18 @@ class LocationSearchViewModel: NSObject, ObservableObject {
         let search = MKLocalSearch(request: searchRequest)
 
         search.start(completionHandler: completion)
+    }
+    
+    func computeRidePrice(for type: RideType) -> Double {
+        guard let coordinate = selectedLocation else { return 0 }
+        guard let userLocation = self.userLocation else { return 0 }
+        //guard let routeDistance = self.distance else { return 0}
+        
+        let selectedLocationCLLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let userLocationCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        let distance = selectedLocationCLLocation.distance(from: userLocationCLLocation)
+        
+        return type.computePrice(for: distance)
     }
 }
 
