@@ -75,8 +75,6 @@ extension UberMapViewRepresentable {
             anno.coordinate = coordinate
             self.parent.mapView.addAnnotation(anno)
             self.parent.mapView.selectAnnotation(anno, animated: true)
-            
-            self.parent.mapView.showAnnotations(self.parent.mapView.annotations, animated: true)
         }
         
         func configurePolyline(withDestionationCoordinate coordinate: CLLocationCoordinate2D) {
@@ -84,6 +82,9 @@ extension UberMapViewRepresentable {
             guard let userLocation = userLocationCoordinate else { return }
             getDestinationRoute(from: userLocation, to: coordinate) { route in
                 self.parent.mapView.addOverlay(route.polyline)
+                
+                let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect, edgePadding: .init(top: 64, left: 44, bottom: 550, right: 44))
+                self.parent.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
         }
         

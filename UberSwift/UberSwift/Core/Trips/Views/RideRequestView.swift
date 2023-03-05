@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RideRequestView: View {
+    @State private var selectedRide: RideType = .uberX
     var body: some View {
         VStack {
             HStack {
@@ -70,13 +71,13 @@ struct RideRequestView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 12) {
-                        ForEach(0..<3, id: \.self) { _ in
+                        ForEach(RideType.allCases) { ride in
                             VStack(alignment: .leading) {
-                                Image("uber-x")
+                                Image(ride.ImageName)
                                     .resizable()
                                     .scaledToFit()
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("UberX")
+                                    Text(ride.description)
                                         .font(.callout)
                                         .fontWeight(.semibold)
                                     
@@ -87,8 +88,15 @@ struct RideRequestView: View {
                                 .padding(8)
                             }
                             .frame(width: 112, height: 140)
-                            .background(Color(.systemGroupedBackground))
+                            .foregroundColor(ride == selectedRide ? .white : .black)
+                            .background(Color(ride == selectedRide ? .systemBlue : .systemGroupedBackground))
+                            .scaleEffect(ride == selectedRide ? 1.1 : 1.0)
                             .cornerRadius(10)
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    selectedRide = ride
+                                }
+                            }
                         }
                     }
                 }
@@ -132,7 +140,9 @@ struct RideRequestView: View {
 
             }
             .background(.white)
+            .cornerRadius(24)
         }
+        .padding(.bottom)
     }
 }
 

@@ -49,8 +49,10 @@ struct LocationSearchView: View {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.results, id: \.self) { result in
                         Button {
-                            viewModel.selectLocation(result)
-                            mapState = .locationSelected
+                            withAnimation(.spring()) {
+                                viewModel.selectLocation(result)
+                                mapState = .locationSelected
+                            }
                         } label: {
                             LocationSearchResultCell(title: result.title, subtitle: result.subtitle)
                         }
@@ -65,6 +67,7 @@ struct LocationSearchView: View {
 
 struct LocationSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSearchView(mapState: .constant(.noInput))
+        LocationSearchView(mapState: .constant(.searchingForLocation))
+            .environmentObject(LocationSearchViewModel())
     }
 }
