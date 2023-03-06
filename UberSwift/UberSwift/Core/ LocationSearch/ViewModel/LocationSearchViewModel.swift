@@ -12,7 +12,7 @@ import MapKit
 class LocationSearchViewModel: NSObject, ObservableObject {
     @Published var results = [MKLocalSearchCompletion]()
     @Published var selectedLocation: CLLocationCoordinate2D?
-    
+    @Published var distance: Double?
     private let searchCompleter = MKLocalSearchCompleter()
     var queryFragment: String = "" {
         didSet {
@@ -30,10 +30,12 @@ class LocationSearchViewModel: NSObject, ObservableObject {
     
     func selectLocation(_ location: MKLocalSearchCompletion) {
         locationSearch(forLocalSearchCompletion: location) { response, error in
+            self.distance = nil
             guard let item = response?.mapItems.first else { return }
             let coordinate = item.placemark.coordinate
             
             self.selectedLocation = coordinate
+            self.getDistance()
         }
     }
     
@@ -45,16 +47,31 @@ class LocationSearchViewModel: NSObject, ObservableObject {
         search.start(completionHandler: completion)
     }
     
+    
+    func getDistance() {
+        guard let userLocation = userLocation else { return }
+        guard let selectedLocation = selectedLocation else { return }
+        let userPlacemark = MKPlacemark(coordinate: userLocation)
+        let destinationPlacemark = MKPlacemark(coordinate: selectedLocation)
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: userPlacemark)
+        request.destination = MKMapItem(placemark: destinationPlacemark)
+        let directions = MKDirections(request: request)
+        
+        directions.calculate { response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let route = response?.routes.first else { return }
+            self.distance = route.distance
+            print(route.distance)
+        }
+    }
+    
     func computeRidePrice(for type: RideType) -> Double {
-        guard let coordinate = selectedLocation else { return 0 }
-        guard let userLocation = self.userLocation else { return 0 }
-        //guard let routeDistance = self.distance else { return 0}
-        
-        let selectedLocationCLLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let userLocationCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-        let distance = selectedLocationCLLocation.distance(from: userLocationCLLocation)
-        
-        return type.computePrice(for: distance)
+        guard let routeDistance = self.distance else { return 0}
+        return type.computePrice(for: routeDistance)
     }
 }
 
