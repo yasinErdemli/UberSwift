@@ -32,7 +32,7 @@ struct UberMapViewRepresentable: UIViewRepresentable {
         case .searchingForLocation:
             break
         case .locationSelected:
-            if let selectedLocation = viewModel.selectedLocation {
+            if let selectedLocation = viewModel.selectedUberLocation?.coordinate {
                 context.coordinator.addAndSelectAnnotation(withCoordinate: selectedLocation)
                 context.coordinator.configurePolyline(withDestionationCoordinate: selectedLocation)
             }
@@ -101,11 +101,10 @@ extension UberMapViewRepresentable {
                     return
                 }
                 guard let route = response?.routes.first else { return }
-                // self.parent.viewModel.distance = route.distance
                 completion(route)
             }
         }
-        
+                
         func clearMapView() {
             guard let currentRegion = currentRegion else { return }
             self.parent.mapView.removeAnnotations(self.parent.mapView.annotations)

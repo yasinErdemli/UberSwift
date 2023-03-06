@@ -35,7 +35,7 @@ struct RideRequestView: View {
                         
                         Spacer()
                         
-                        Text("02:55 PM")
+                        Text(viewModel.pickupTime ?? "loading")
                             .padding(.leading)
                             .foregroundColor(.secondary)
                             .font(.footnote)
@@ -43,13 +43,13 @@ struct RideRequestView: View {
                     }
                     HStack {
                         
-                        Text("Coffee Lovers")
+                        Text(viewModel.selectedUberLocation?.title ?? "Error")
                             .padding(.trailing)
                             .font(.callout)
                             .bold()
                         Spacer()
                         
-                        Text("02:55 PM")
+                        Text(viewModel.dropOffTime ?? "loading")
                             .font(.footnote)
                             .padding(.leading)
                             .foregroundColor(.secondary)

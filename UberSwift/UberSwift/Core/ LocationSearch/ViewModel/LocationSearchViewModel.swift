@@ -11,8 +11,12 @@ import MapKit
 
 class LocationSearchViewModel: NSObject, ObservableObject {
     @Published var results = [MKLocalSearchCompletion]()
-    @Published var selectedLocation: CLLocationCoordinate2D?
+    @Published var selectedUberLocation: UberLocation?
     @Published var distance: Double?
+    @Published var pickupTime: String?
+    @Published var dropOffTime: String? 
+    
+    
     private let searchCompleter = MKLocalSearchCompleter()
     var queryFragment: String = "" {
         didSet {
@@ -34,7 +38,7 @@ class LocationSearchViewModel: NSObject, ObservableObject {
             guard let item = response?.mapItems.first else { return }
             let coordinate = item.placemark.coordinate
             
-            self.selectedLocation = coordinate
+            self.selectedUberLocation = UberLocation.init(title: location.title, coordinate: coordinate)
             self.getDistance()
         }
     }
@@ -50,7 +54,7 @@ class LocationSearchViewModel: NSObject, ObservableObject {
     
     func getDistance() {
         guard let userLocation = userLocation else { return }
-        guard let selectedLocation = selectedLocation else { return }
+        guard let selectedLocation = selectedUberLocation?.coordinate else { return }
         let userPlacemark = MKPlacemark(coordinate: userLocation)
         let destinationPlacemark = MKPlacemark(coordinate: selectedLocation)
         let request = MKDirections.Request()
@@ -65,13 +69,21 @@ class LocationSearchViewModel: NSObject, ObservableObject {
             }
             guard let route = response?.routes.first else { return }
             self.distance = route.distance
-            print(route.distance)
+            self.configurePickupAndDropOffTime(with: route.expectedTravelTime)
         }
     }
     
     func computeRidePrice(for type: RideType) -> Double {
         guard let routeDistance = self.distance else { return 0}
         return type.computePrice(for: routeDistance)
+    }
+    
+    
+    func configurePickupAndDropOffTime(with expectedTravelTime: Double) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a"
+        pickupTime = formatter.string(from: Date())
+        dropOffTime = formatter.string(from: Date() + expectedTravelTime)
     }
 }
 
